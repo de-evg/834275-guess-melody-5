@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {GameType} from "../../const";
 
-class ArtistQuestionScreen = (props) => {
+const ArtistQuestionScreen = (props) => {
   const {onAnswer, question} = props;
   const {
     answers,
@@ -35,7 +35,7 @@ class ArtistQuestionScreen = (props) => {
           <div className="track">
             <button className="track__button track__button--play" type="button"></button>
             <div className="track__status">
-            <audio></audio>
+              <audio></audio>
               <audio
                 src={song.src}
               />
@@ -44,7 +44,7 @@ class ArtistQuestionScreen = (props) => {
         </div>
 
         <form className="game__artist">
-        {answers.map((answer, i) => (
+          {answers.map((answer, i) => (
             <div key={answer.artist} className="artist">
               <input className="artist__input visually-hidden" type="radio" name="answer" value={`answer-${i}`} id={`answer-${i}`}
                 onChange={(evt) => {
