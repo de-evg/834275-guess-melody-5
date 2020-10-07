@@ -9,6 +9,8 @@ import AuthScreen from "../auth-screen/auth-screen";
 import WinScreen from "../win-screen/win-screen";
 import GameOverScreen from "../game-over-screen/game-over-screen";
 
+import questions from "../../mocks/question";
+
 const App = (props) => {
   const {errorsCount} = props;
 
@@ -16,7 +18,10 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <WelcomeScreen errorsCount={errorsCount} />
+          <WelcomeScreen
+            errorsCount={errorsCount}
+            questions={questions}
+          />
         </Route>
 
         <Route exact path="/dev-artist">
