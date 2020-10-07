@@ -10,7 +10,7 @@ const Settings = {
 render(
     <App
       errorsCount={Settings.ERRORS_COUNT}
-      qustions={questions}
+      questions={questions}
     />,
     document.getElementById(`root`)
 );
