@@ -5,19 +5,30 @@ import {GameType} from "../../const";
 class GenreQuestionScreen extends PureComponent {
   constructor(props) {
     super(props);
+    this.submitHundler = this.submitHundler.bind(this);
+    this.changeAnswerHandler = this.changeAnswerHandler.bind(this);
 
     this.state = {
       answers: [false, false, false, false],
     };
   }
 
+  submitHundler(evt) {
+    evt.preventDefault();
+    this.props.onAnswer(this.props.question, this.state.answers);
+  }
+
+  changeAnswerHandler(evt) {
+    const value = evt.target.checked;
+    const i = +evt.target.id.slice(-1);
+    this.setState({
+      answers: [...this.state.answers.slice(0, i), value, ...this.state.answers.slice(i + 1)],
+    });
+  }
+
   render() {
-    const {onAnswer, question} = this.props;
     const {answers: userAnswers} = this.state;
-    const {
-      answers,
-      genre,
-    } = question;
+    const {answers, genre} = this.props.question;
 
     return (
       <section className="game game--genre">
@@ -43,10 +54,7 @@ class GenreQuestionScreen extends PureComponent {
           <h2 className="game__title">Выберите {genre} треки</h2>
           <form
             className="game__tracks"
-            onSubmit={(evt) => {
-              evt.preventDefault();
-              onAnswer(question, this.state.answers);
-            }}
+            onSubmit={this.submitHundler}
           >
             {answers.map((answer, i) => (
               <div key={`${i}-${answer.src}`} className="track">
@@ -60,13 +68,7 @@ class GenreQuestionScreen extends PureComponent {
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
                     id={`answer-${i}`}
                     checked={userAnswers[i]}
-                    onChange={(evt) => {
-                      const value = evt.target.checked;
-
-                      this.setState({
-                        answers: [...userAnswers.slice(0, i), value, ...userAnswers.slice(i + 1)],
-                      });
-                    }}
+                    onChange={this.changeAnswerHandler}
                   />
                   <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
                 </div>
