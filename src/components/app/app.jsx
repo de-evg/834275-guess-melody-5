@@ -3,28 +3,42 @@ import PropTypes from "prop-types";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 
 import WelcomeScreen from "../welcome-screen/welcome-screen";
-import ArtistQuestionScreen from "../artist-question-screen/artist-querstion-screen";
+import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
 import AuthScreen from "../auth-screen/auth-screen";
 import WinScreen from "../win-screen/win-screen";
 import GameOverScreen from "../game-over-screen/game-over-screen";
+import GameScreen from "../game-screen/game-screen";
 
 const App = (props) => {
-  const {errorsCount} = props;
+  const {errorsCount, questions} = props;
+  const [firstQuestion, secondQuestion] = questions;
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <WelcomeScreen errorsCount={errorsCount} />
-        </Route>
+        <Route exact
+          path="/"
+          render={({history}) => (
+            <WelcomeScreen
+              onPlayButtonClick={() => history.push(`/game`)}
+              errorsCount={errorsCount}
+            />
+          )}
+        />
 
         <Route exact path="/dev-artist">
-          <ArtistQuestionScreen />
+          <ArtistQuestionScreen
+            question={secondQuestion}
+            onAnswer={() => {}}
+          />
         </Route>
 
         <Route exact path="/dev-genre">
-          <GenreQuestionScreen />
+          <GenreQuestionScreen
+            question={firstQuestion}
+            onAnswer={() => {}}
+          />
         </Route>
 
         <Route exact path="/login">
@@ -38,13 +52,21 @@ const App = (props) => {
         <Route exact path="/lose">
           <GameOverScreen />
         </Route>
+
+        <Route exact path="/game">
+          <GameScreen
+            errorsCount={errorsCount}
+            questions={questions}
+          />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
 };
 
 App.propTypes = {
-  errorsCount: PropTypes.number.isRequired
+  errorsCount: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired
 };
 
 export default App;
