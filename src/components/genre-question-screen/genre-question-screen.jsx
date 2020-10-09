@@ -5,20 +5,20 @@ import {GameType} from "../../const";
 class GenreQuestionScreen extends PureComponent {
   constructor(props) {
     super(props);
-    this.submitHundler = this.submitHundler.bind(this);
-    this.changeAnswerHandler = this.changeAnswerHandler.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
     this.state = {
       answers: [false, false, false, false],
     };
   }
 
-  submitHundler(evt) {
+  handleFormSubmit(evt) {
     evt.preventDefault();
     this.props.onAnswer(this.props.question, this.state.answers);
   }
 
-  changeAnswerHandler(evt) {
+  handleAnswerChange(evt) {
     const value = evt.target.checked;
     const i = +evt.target.id.slice(-1);
     this.setState({
@@ -54,7 +54,7 @@ class GenreQuestionScreen extends PureComponent {
           <h2 className="game__title">Выберите {genre} треки</h2>
           <form
             className="game__tracks"
-            onSubmit={this.submitHundler}
+            onSubmit={this.handleFormSubmit}
           >
             {answers.map((answer, i) => (
               <div key={`${i}-${answer.src}`} className="track">
@@ -68,7 +68,7 @@ class GenreQuestionScreen extends PureComponent {
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
                     id={`answer-${i}`}
                     checked={userAnswers[i]}
-                    onChange={this.changeAnswerHandler}
+                    onChange={this.handleAnswerChange}
                   />
                   <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
                 </div>
