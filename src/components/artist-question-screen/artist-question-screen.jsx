@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {GameType} from "../../const";
+import AudioPlayer from "../audio-player/audio-player";
 
 class ArtistQuestionScreen extends PureComponent {
   constructor(props) {
@@ -40,13 +41,10 @@ class ArtistQuestionScreen extends PureComponent {
           <h2 className="game__title">Кто исполняет эту песню?</h2>
           <div className="game__track">
             <div className="track">
-              <button className="track__button track__button--play" type="button"></button>
-              <div className="track__status">
-                <audio></audio>
-                <audio
-                  src={song.src}
-                />
-              </div>
+              <AudioPlayer
+                isPlaying={true}
+                src={song.src}
+              />
             </div>
           </div>
 
