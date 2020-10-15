@@ -10,7 +10,8 @@ class GenreQuestionScreen extends PureComponent {
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
     this.state = {
-      answers: [false, false, false, false],
+      acitvePlayer: 0,
+      answers: [false, false, false, false]
     };
   }
 
@@ -27,8 +28,15 @@ class GenreQuestionScreen extends PureComponent {
     });
   }
 
+  handlePlayButtonClick(evt) {
+    const playerID = evt.target
+    this.setState({
+      acitvePlayer: this.state.acitvePlayer === playerID ? -1 : playerID
+    });
+  }
+
   render() {
-    const {answers: userAnswers} = this.state;
+    const {answers: userAnswers, acitvePlayer} = this.state;
     const {answers, genre} = this.props.question;
 
     return (
@@ -61,8 +69,10 @@ class GenreQuestionScreen extends PureComponent {
               <div key={`${i}-${answer.src}`} className="track">
                 <button className="track__button track__button--play" type="button"/>
                 <AudioPlayer
+                  id={i}
                   isPlaying={i === 0}
                   src={answer.src}
+                  onClick={this.handlePlayButtonClick}
                 />
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}

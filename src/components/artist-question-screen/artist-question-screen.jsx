@@ -6,6 +6,11 @@ import AudioPlayer from "../audio-player/audio-player";
 class ArtistQuestionScreen extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isPlaying: true
+    };
+
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
   }
 
@@ -14,7 +19,14 @@ class ArtistQuestionScreen extends PureComponent {
     this.props.onAnswer(this.props.question, this.props.question.answers);
   }
 
+  handlePlayButtonClick(evt) {
+    this.setState({
+      isPlaying: !isPlaying
+    });
+  }
+
   render() {
+    const {isPlaying} = this.state;
     const {answers, song} = this.props.question;
 
     return (
@@ -42,8 +54,9 @@ class ArtistQuestionScreen extends PureComponent {
           <div className="game__track">
             <div className="track">
               <AudioPlayer
-                isPlaying={true}
+                isPlaying={isPlaying}
                 src={song.src}
+                onPlayButtonClick={this.handlePlayButtonClick}
               />
             </div>
           </div>
