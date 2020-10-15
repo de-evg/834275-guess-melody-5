@@ -2,8 +2,14 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {GameType} from "../../const";
+
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
+
+import withAudioPlayer from "../../hocks/with-audio-player/with-audio-player";
+
+const ArtistQuestionScreenHOC = withAudioPlayer(ArtistQuestionScreen);
+const GenreQuestionScreenHOC = withAudioPlayer(GenreQuestionScreen);
 
 class GameScreen extends PureComponent {
   constructor(props) {
@@ -28,7 +34,7 @@ class GameScreen extends PureComponent {
     switch (question.type) {
       case GameType.ARTIST:
         return (
-          <ArtistQuestionScreen
+          <ArtistQuestionScreenHOC
             question={question}
             onAnswer={() => {
               this.setState((prevState) => ({
@@ -39,7 +45,7 @@ class GameScreen extends PureComponent {
         );
       case GameType.GENRE:
         return (
-          <GenreQuestionScreen
+          <GenreQuestionScreenHOC
             question={question}
             onAnswer={() => {
               this.setState((prevState) => ({

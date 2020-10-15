@@ -28,7 +28,6 @@ class AudioPlayer extends PureComponent {
     const audio = this.audioRef.current;
 
     audio.oncanplaythrough = null;
-    audio = null;
   }
 
   render() {
