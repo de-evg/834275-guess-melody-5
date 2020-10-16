@@ -28,13 +28,13 @@ const questions = [
     },
     answers: [
       {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}`,
         artist: `John Snow`
       }, {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}`,
         artist: `Jack Daniels`
       }, {
-        picture: `${AVATAR_URL}/${Math.random()}`,
+        picture: `${AVATAR_URL}`,
         artist: `Jim Beam`
       }
     ]

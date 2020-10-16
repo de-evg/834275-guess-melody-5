@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import {GameType} from "../../const";
+import genreQuestionProp from "./genre-question.prop";
 
 class GenreQuestionScreen extends PureComponent {
   constructor(props) {
@@ -9,7 +9,7 @@ class GenreQuestionScreen extends PureComponent {
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
 
     this.state = {
-      answers: [false, false, false, false],
+      answers: [false, false, false, false]
     };
   }
 
@@ -28,7 +28,8 @@ class GenreQuestionScreen extends PureComponent {
 
   render() {
     const {answers: userAnswers} = this.state;
-    const {answers, genre} = this.props.question;
+    const {question, renderPlayer} = this.props;
+    const {answers, genre} = question;
 
     return (
       <section className="game game--genre">
@@ -58,12 +59,7 @@ class GenreQuestionScreen extends PureComponent {
           >
             {answers.map((answer, i) => (
               <div key={`${i}-${answer.src}`} className="track">
-                <button className="track__button track__button--play" type="button"/>
-                <div className="track__status">
-                  <audio
-                    src={answer.src}
-                  />
-                </div>
+                {renderPlayer(answer.src, i)}
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
                     id={`answer-${i}`}
@@ -85,13 +81,7 @@ class GenreQuestionScreen extends PureComponent {
 
 GenreQuestionScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(PropTypes.shape({
-      src: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-    })).isRequired,
-    genre: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
-  }).isRequired,
+  question: genreQuestionProp,
+  renderPlayer: PropTypes.func.isRequired
 };
 export default GenreQuestionScreen;
