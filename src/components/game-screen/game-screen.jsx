@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {ActionCreator, checkIsAnswerCorrect} from "../../store/action";
 import {GameType} from "../../const";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
@@ -55,7 +55,7 @@ const GameScreen = (props) => {
 const mapStateToProps = (state) => ({
   step: state.step,
   mistakes: state.mistakes,
-  questions: state.questions
+  questions: state.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,8 +63,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.resetGame());
   },
   onUserAnswer(question, answer) {
-    dispatch(ActionCreator.incrementStep());
-    dispatch(ActionCreator.incrementMistake(question, answer));
+    if (checkIsAnswerCorrect(question, answer)) {
+      dispatch(ActionCreator.incrementStep());
+    } else {
+      dispatch(ActionCreator.incrementMistake());
+    }
   }
 });
 

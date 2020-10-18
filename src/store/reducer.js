@@ -1,6 +1,6 @@
 import {extend} from "../utils/utils";
 import {ActionType} from "./action";
-import {questions} from "../mocks/questions";
+import questions from "../mocks/questions";
 import {MAX_MISTAKE_COUNT} from "../const";
 
 const initialState = {
@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
       }
 
       return extend(state, {
-        step: state.mistakes + action.payload
+        mistakes: state.mistakes + action.payload
       });
     case ActionType.RESET_GAME:
       return extend(state, initialState);
