@@ -17,6 +17,8 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         step: state.mistakes + action.payload
       });
+    case ActionType.RESET_GAME:
+      return extend(state, initialState);
   }
   return state;
 };
