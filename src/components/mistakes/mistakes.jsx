@@ -15,4 +15,5 @@ const Mistakes = (props) => {
 Mistakes.propTypes = {
   count: PropTypes.number.isRequired,
 };
+
 export default Mistakes;

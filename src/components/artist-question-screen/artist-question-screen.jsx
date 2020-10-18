@@ -15,7 +15,7 @@ class ArtistQuestionScreen extends PureComponent {
   }
 
   render() {
-    const {question, renderPlayer} = this.props;
+    const {question, renderPlayer, children} = this.props;
     const {answers, song} = question;
 
     return (
@@ -31,11 +31,7 @@ class ArtistQuestionScreen extends PureComponent {
               style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformrigin: `center`}} />
           </svg>
 
-          <div className="game__mistakes">
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-            <div className="wrong"></div>
-          </div>
+          {children}
         </header>
 
         <section className="game__screen">
@@ -68,7 +64,8 @@ class ArtistQuestionScreen extends PureComponent {
 ArtistQuestionScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
   question: artistQuestionProp,
-  renderPlayer: PropTypes.func.isRequired
+  renderPlayer: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired
 };
 
 export default ArtistQuestionScreen;
