@@ -10,6 +10,9 @@ import Mistakes from "../mistakes/mistakes";
 
 import withAudioPlayer from "../../hocks/with-audio-player/with-audio-player";
 
+import artistQuestionProp from "../artist-question-screen/artist-question.prop";
+import genreQuestionProp from "../genre-question-screen/genre-question.prop";
+
 const ArtistQuestionScreenHOC = withAudioPlayer(ArtistQuestionScreen);
 const GenreQuestionScreenHOC = withAudioPlayer(GenreQuestionScreen);
 
@@ -51,20 +54,24 @@ const GameScreen = (props) => {
 
 const mapStateToProps = (state) => ({
   step: state.step,
-  mistakes: state.mistakes
+  mistakes: state.mistakes,
+  questions: state.questions
 });
 
 const mapDispatchToProps = (dispatch) => ({
   resetGame() {
     dispatch(ActionCreator.resetGame());
   },
-  onUserAnswer() {
+  onUserAnswer(question, answer) {
     dispatch(ActionCreator.incrementStep());
+    dispatch(ActionCreator.incrementMistake(question, answer));
   }
 });
 
 GameScreen.propTypes = {
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.arrayOf(
+      PropTypes.oneOfType([artistQuestionProp, genreQuestionProp]).isRequired
+  ),
   step: PropTypes.number.isRequired,
   resetGame: PropTypes.func.isRequired,
   onUserAnswer: PropTypes.func.isRequired,
