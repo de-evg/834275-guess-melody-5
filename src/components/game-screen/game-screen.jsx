@@ -1,68 +1,68 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import {GameType} from "../../const";
-
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
-
 import withAudioPlayer from "../../hocks/with-audio-player/with-audio-player";
+
 
 const ArtistQuestionScreenHOC = withAudioPlayer(ArtistQuestionScreen);
 const GenreQuestionScreenHOC = withAudioPlayer(GenreQuestionScreen);
 
-class GameScreen extends PureComponent {
-  constructor(props) {
-    super(props);
+const GameScreen = (props) => {
+  const {questions, step, onUserAnswer, resetGame} = props;
+  const question = questions[step];
 
-    this.state = {
-      step: 0,
-    };
+
+  if (step >= questions.length || !question) {
+    resetGame();
+    return (
+      <Redirect to="/" />
+    );
   }
 
-  render() {
-    const {questions} = this.props;
-    const {step} = this.state;
-    const question = questions[step];
-
-    if (step >= questions.length || !question) {
+  switch (question.type) {
+    case GameType.ARTIST:
       return (
-        <Redirect to="/" />
+        <ArtistQuestionScreenHOC
+          question={question}
+          onAnswer={onUserAnswer}
+        />
       );
-    }
-
-    switch (question.type) {
-      case GameType.ARTIST:
-        return (
-          <ArtistQuestionScreenHOC
-            question={question}
-            onAnswer={() => {
-              this.setState((prevState) => ({
-                step: prevState.step + 1,
-              }));
-            }}
-          />
-        );
-      case GameType.GENRE:
-        return (
-          <GenreQuestionScreenHOC
-            question={question}
-            onAnswer={() => {
-              this.setState((prevState) => ({
-                step: prevState.step + 1,
-              }));
-            }}
-          />
-        );
-    }
-
-    return <Redirect to="/" />;
+    case GameType.GENRE:
+      return (
+        <GenreQuestionScreenHOC
+          question={question}
+          onAnswer={onUserAnswer}
+        />
+      );
   }
 
-}
+  return <Redirect to="/" />;
+};
+
+const mapStateToProps = (state) => ({
+  step: state.step
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetGame() {
+    dispatch(ActionCreator.resetGame());
+  },
+  onUserAnswer() {
+    dispatch(ActionCreator.incrementStep());
+  }
+});
 
 GameScreen.propTypes = {
   questions: PropTypes.array.isRequired,
+  step: PropTypes.number.isRequired,
+  resetGame: PropTypes.func.isRequired,
+  onUserAnswer: PropTypes.func.isRequired,
 };
 
-export default GameScreen;
+export {GameScreen};
+export default connect(mapStateToProps, mapDispatchToProps)(GameScreen);
