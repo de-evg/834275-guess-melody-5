@@ -3,7 +3,7 @@ import {GameType} from "../const";
 
 const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
-  INCREMENT_STEP: `INCREMENT_STEP`,
+  INCREMENT_GAME_STEP: `INCREMENT_GAME_STEP`,
   RESET_GAME: `RESET_GAME`
 };
 
@@ -23,18 +23,14 @@ const checkIsAnswerCorrect = (question, userAnswer) => {
 
 const ActionCreator = {
   incrementStep: () => ({
-    type: ActionType.INCREMENT_STEP,
-    payload: 1,
+    type: ActionType.INCREMENT_GAME_STEP
   }),
   resetGame: () => ({
     type: ActionType.RESET_GAME,
   }),
-  incrementMistake: () => {
-    return {
-      type: ActionType.INCREMENT_MISTAKES,
-      payload: 1,
-    };
-  },
+  incrementMistake: () => ({
+    type: ActionType.INCREMENT_MISTAKES
+  })
 };
 
 

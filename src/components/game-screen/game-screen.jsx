@@ -23,6 +23,7 @@ const GameScreen = (props) => {
 
   if (step >= questions.length || !question) {
     resetGame();
+
     return (
       <Redirect to="/" />
     );
