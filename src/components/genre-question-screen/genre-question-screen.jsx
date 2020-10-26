@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import genreQuestionProp from "./genre-question.prop";
+import GenreAnswer from "../genre-answer/genre-answer";
 
 class GenreQuestionScreen extends PureComponent {
   constructor(props) {
@@ -18,9 +19,7 @@ class GenreQuestionScreen extends PureComponent {
     this.props.onAnswer(this.props.question, this.state.answers);
   }
 
-  handleAnswerChange(evt) {
-    const value = evt.target.checked;
-    const i = +evt.target.id.slice(-1);
+  handleAnswerChange(value, i) {
     this.setState({
       answers: [...this.state.answers.slice(0, i), value, ...this.state.answers.slice(i + 1)],
     });
@@ -54,17 +53,14 @@ class GenreQuestionScreen extends PureComponent {
             onSubmit={this.handleFormSubmit}
           >
             {answers.map((answer, i) => (
-              <div key={`${i}-${answer.src}`} className="track">
-                {renderPlayer(answer.src, i)}
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
-                    id={`answer-${i}`}
-                    checked={userAnswers[i]}
-                    onChange={this.handleAnswerChange}
-                  />
-                  <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-                </div>
-              </div>
+              <GenreAnswer
+                i={i}
+                key={`${i}-${answer.src}`}
+                src={answer.src}
+                isChecked={userAnswers[i]}
+                renderPlayer={renderPlayer}
+                onAnswerChange={this.handleAnswerChange}
+              />
             ))}
 
             <button className="game__submit button" type="submit">Ответить</button>
