@@ -6,6 +6,12 @@ import {ActionCreator} from "../../store/action";
 const WinScreen = (props) => {
   const {questionsCount, mistakesCount, onReplayButtonClick, resetGame} = props;
   const correctlyQuestionsCount = questionsCount - mistakesCount;
+
+  const handleReplayBtnClick = () => {
+    resetGame();
+    onReplayButtonClick();
+  };
+
   return (
     <section className="result">
       <div className="result__logo">
@@ -14,10 +20,7 @@ const WinScreen = (props) => {
       <h2 className="result__title">Вы настоящий меломан!</h2>
       <p className="result__total">Вы ответили правильно на {correctlyQuestionsCount} вопросов и совершили {mistakesCount} ошибки</p>
       <button
-        onClick={() => {
-          resetGame();
-          onReplayButtonClick();
-        }}
+        onClick={handleReplayBtnClick}
         className="replay"
         type="button"
       >

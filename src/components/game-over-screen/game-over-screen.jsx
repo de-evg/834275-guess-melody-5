@@ -4,6 +4,12 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
 const GameOverScreen = ({onReplayButtonClick, resetGame}) => {
+
+  const handleReplayBtnClick = () => {
+    resetGame();
+    onReplayButtonClick();
+  };
+
   return (
     <section className="result">
       <div className="result__logo">
@@ -12,10 +18,7 @@ const GameOverScreen = ({onReplayButtonClick, resetGame}) => {
       <h2 className="result__title">Какая жалость!</h2>
       <p className="result__total result__total--fail">У вас закончились все попытки. Ничего, повезёт в следующий раз!</p>
       <button
-        onClick={() => {
-          resetGame();
-          onReplayButtonClick();
-        }}
+        onClick={handleReplayBtnClick}
         className="replay"
         type="button"
       >

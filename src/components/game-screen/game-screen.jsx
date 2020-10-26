@@ -18,7 +18,7 @@ const ArtistQuestionScreenHOC = withAudioPlayer(ArtistQuestionScreen);
 const GenreQuestionScreenHOC = withAudioPlayer(withUserAnswer(GenreQuestionScreen));
 
 const GameScreen = (props) => {
-  const {questions, step, onUserAnswer, resetGame, mistakes} = props;
+  const {questions, step, onUserAnswer, mistakes} = props;
   const question = questions[step];
 
 
@@ -29,8 +29,6 @@ const GameScreen = (props) => {
   }
 
   if (step >= questions.length || !question) {
-    resetGame();
-
     return (
       <Redirect to="/result" />
     );
@@ -74,6 +72,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (checkIsAnswerCorrect(question, answer)) {
       dispatch(ActionCreator.incrementStep());
     } else {
+      dispatch(ActionCreator.incrementStep());
       dispatch(ActionCreator.incrementMistake());
     }
   }
