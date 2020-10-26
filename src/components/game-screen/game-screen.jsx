@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator, checkIsAnswerCorrect} from "../../store/action";
-import {GameType, MAX_MISTAKE_COUNT} from '../../const';
+import {GameType, MAX_MISTAKE_COUNT} from "../../const";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
 import Mistakes from "../mistakes/mistakes";
 
-import withAudioPlayer from "../../hocks/with-audio-player/with-audio-player";
-import withUserAnswer from "../../hocks/with-user-answer/with-user-answer";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player";
+import withUserAnswer from "../../hocs/with-user-answer/with-user-answer";
 
 import artistQuestionProp from "../artist-question-screen/artist-question.prop";
 import genreQuestionProp from "../genre-question-screen/genre-question.prop";

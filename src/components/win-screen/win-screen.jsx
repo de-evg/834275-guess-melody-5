@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
@@ -7,10 +7,10 @@ const WinScreen = (props) => {
   const {questionsCount, mistakesCount, onReplayButtonClick, resetGame} = props;
   const correctlyQuestionsCount = questionsCount - mistakesCount;
 
-  const handleReplayBtnClick = () => {
+  const handleReplayBtnClick = useCallback(() => {
     resetGame();
     onReplayButtonClick();
-  };
+  });
 
   return (
     <section className="result">

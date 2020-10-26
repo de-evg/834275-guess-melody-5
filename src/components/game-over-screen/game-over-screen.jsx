@@ -1,14 +1,14 @@
-import React from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 
 const GameOverScreen = ({onReplayButtonClick, resetGame}) => {
 
-  const handleReplayBtnClick = () => {
+  const handleReplayBtnClick = useCallback(() => {
     resetGame();
     onReplayButtonClick();
-  };
+  }, [onReplayButtonClick, resetGame]);
 
   return (
     <section className="result">
