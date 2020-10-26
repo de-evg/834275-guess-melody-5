@@ -64,5 +64,4 @@ const withUserAnswer = (Component) => {
   return WithUserAnswer;
 };
 
-
 export default withUserAnswer;

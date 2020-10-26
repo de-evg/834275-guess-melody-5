@@ -9,7 +9,7 @@ import GenreQuestionScreen from "../genre-question-screen/genre-question-screen"
 import Mistakes from "../mistakes/mistakes";
 
 import withAudioPlayer from "../../hocks/with-audio-player/with-audio-player";
-import withUserAnswer from "../../hocs/with-user-answer/with-user-answer";
+import withUserAnswer from "../../hocks/with-user-answer/with-user-answer";
 
 import artistQuestionProp from "../artist-question-screen/artist-question.prop";
 import genreQuestionProp from "../genre-question-screen/genre-question.prop";

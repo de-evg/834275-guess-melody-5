@@ -1,28 +1,47 @@
-import React from "react";
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 
-const GenreAnswer = (props) => {
-  const {src, renderPlayer, i, isChecked, onAnswerChange} = props;
+class GenreAnswer extends PureComponent {
+  constructor(props) {
+    super(props);
 
-  const handleAnswerChange = (evt) => {
-    evt.preventDefault();
+    this.handleAnswerChange = this.handleAnswerChange.bind(this);
+  }
+
+  handleAnswerChange(evt) {
+    const {onChange, id} = this.props;
     const value = evt.target.checked;
-    const id = +evt.target.id.slice(-1);
-    onAnswerChange(value, id);
-  };
+    onChange(id, value);
+  }
 
-  return (
-    <div className="track">
-      {renderPlayer(src, i)}
-      <div className="game__answer">
-        <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
-          id={`answer-${i}`}
-          checked={isChecked}
-          onChange={handleAnswerChange}
-        />
-        <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
+  render() {
+    const {answer, id, renderPlayer, userAnswer} = this.props;
+
+    return (
+      <div className="track">
+        {renderPlayer(answer.src, id)}
+        <div className="game__answer">
+          <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${id}`}
+            id={`answer-${id}`}
+            checked={userAnswer}
+            onChange={this.handleAnswerChange}
+          />
+          <label className="game__check" htmlFor={`answer-${id}`}>Отметить</label>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+GenreAnswer.propTypes = {
+  answer: PropTypes.shape({
+    src: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+  }).isRequired,
+  id: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
+  userAnswer: PropTypes.bool.isRequired,
 };
 
 export default GenreAnswer;
