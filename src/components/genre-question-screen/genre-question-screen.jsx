@@ -1,84 +1,72 @@
-import React, {PureComponent} from "react";
+import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import genreQuestionProp from "./genre-question.prop";
+import GenreAnswer from "../genre-answer/genre-answer";
+import {Link} from "react-router-dom";
 
-class GenreQuestionScreen extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleAnswerChange = this.handleAnswerChange.bind(this);
+const GenreQuestionScreen = (props) => {
+  const {
+    onAnswer,
+    onChange,
+    question,
+    renderPlayer,
+    children,
+    userAnswers
+  } = props;
 
-    this.state = {
-      answers: [false, false, false, false]
-    };
-  }
+  const {
+    answers,
+    genre,
+  } = question;
 
-  handleFormSubmit(evt) {
+  const handleFormSubmit = useCallback((evt) => {
     evt.preventDefault();
-    this.props.onAnswer(this.props.question, this.state.answers);
-  }
+    onAnswer();
+  });
 
-  handleAnswerChange(evt) {
-    const value = evt.target.checked;
-    const i = +evt.target.id.slice(-1);
-    this.setState({
-      answers: [...this.state.answers.slice(0, i), value, ...this.state.answers.slice(i + 1)],
-    });
-  }
-
-  render() {
-    const {answers: userAnswers} = this.state;
-    const {question, renderPlayer, children} = this.props;
-    const {answers, genre} = question;
-
-    return (
-      <section className="game game--genre">
-        <header className="game__header">
-          <a className="game__back" href="#">
-            <span className="visually-hidden">Сыграть ещё раз</span>
-            <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию" />
-          </a>
-
-          <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-            <circle className="timer__line" cx="390" cy="390" r="370"
-              style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
-          </svg>
-
-          {children}
-        </header>
-
-        <section className="game__screen">
-          <h2 className="game__title">Выберите {genre} треки</h2>
-          <form
-            className="game__tracks"
-            onSubmit={this.handleFormSubmit}
-          >
-            {answers.map((answer, i) => (
-              <div key={`${i}-${answer.src}`} className="track">
-                {renderPlayer(answer.src, i)}
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
-                    id={`answer-${i}`}
-                    checked={userAnswers[i]}
-                    onChange={this.handleAnswerChange}
-                  />
-                  <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-                </div>
-              </div>
-            ))}
-
-            <button className="game__submit button" type="submit">Ответить</button>
-          </form>
-        </section>
+  return (
+    <section className="game game--genre">
+      <header className="game__header">
+        <Link className="game__back" to="/">
+          <span className="visually-hidden">Сыграть ещё раз</span>
+          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию"/>
+        </Link>
+        <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
+          <circle className="timer__line" cx="390" cy="390" r="370"
+            style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}}/>
+        </svg>
+        {children}
+      </header>
+      <section className="game__screen">
+        <h2 className="game__title">Выберите {genre} треки</h2>
+        <form
+          className="game__tracks"
+          onSubmit={handleFormSubmit}
+        >
+          {answers.map((answer, i) => (
+            <GenreAnswer
+              answer={answer}
+              id={i}
+              key={`${i}-${answer.src}`}
+              onChange={onChange}
+              renderPlayer={renderPlayer}
+              userAnswer={userAnswers[i]}
+            />
+          ))}
+          <button className="game__submit button" type="submit">Ответить</button>
+        </form>
       </section>
-    );
-  }
-}
+    </section>
+  );
+};
 
 GenreQuestionScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   question: genreQuestionProp,
   renderPlayer: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  userAnswers: PropTypes.arrayOf(PropTypes.bool).isRequired,
 };
+
 export default GenreQuestionScreen;
