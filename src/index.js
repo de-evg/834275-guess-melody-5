@@ -1,9 +1,9 @@
 import React from "react";
 import {render} from "react-dom";
 import {createStore, applyMiddleware} from "redux";
-import {composeWithDevTools} from "redux-devtools-extensions";
+import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
-import thunk from "redux-think";
+import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
 import App from "./components/app/app";
 import {reducer} from "./store/reducer";
