@@ -1,6 +1,5 @@
 import {extend} from "../utils/utils";
 import {ActionType} from "./action";
-import questions from "../mocks/questions";
 import {INCREMENT_STEP} from "../const";
 
 const initialState = {
