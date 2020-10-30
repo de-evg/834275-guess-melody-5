@@ -4,9 +4,23 @@ const GameType = {
   ARTIST: `artist`,
   GENRE: `genre`,
 };
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
 
-export {GameType, MAX_MISTAKE_COUNT, INCREMENT_STEP, AuthorizationStatus};
+const AppRoute = {
+  LOGIN: `/login`,
+  LOSE: `/lose`,
+  RESULT: `/result`,
+  ROOT: `/`,
+  GAME: `/game`,
+};
+
+const APIRoute = {
+  QUESTIONS: `/questions`,
+  LOGIN: `/login`,
+};
+
+export {GameType, MAX_MISTAKE_COUNT, INCREMENT_STEP, AuthorizationStatus, AppRoute, APIRoute};

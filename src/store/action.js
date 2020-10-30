@@ -24,29 +24,31 @@ const checkIsAnswerCorrect = (question, userAnswer) => {
   return answerIsCorrect;
 };
 
-const ActionCreator = {
-  incrementStep: () => ({
-    type: ActionType.INCREMENT_GAME_STEP
-  }),
-  resetGame: () => ({
-    type: ActionType.RESET_GAME,
-  }),
-  incrementMistake: () => ({
-    type: ActionType.INCREMENT_MISTAKES
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url
-  }),
-  loadQuestions: (qustions) => ({
-    type: ActionType.LOAD_QUESTIONS,
-    payload: qustions
-  })
-};
+const incrementStep = () => ({
+  type: ActionType.INCREMENT_GAME_STEP
+});
 
+const resetGame = () => ({
+  type: ActionType.RESET_GAME,
+});
 
-export {ActionType, ActionCreator, checkIsAnswerCorrect};
+const incrementMistake = () => ({
+  type: ActionType.INCREMENT_MISTAKES
+});
+
+const requireAuthorization = (status) => ({
+  type: ActionType.REQUIRED_AUTHORIZATION,
+  payload: status
+});
+
+const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url
+});
+
+const loadQuestions = (qustions) => ({
+  type: ActionType.LOAD_QUESTIONS,
+  payload: qustions
+});
+
+export {ActionType, incrementStep, resetGame, incrementMistake, requireAuthorization, redirectToRoute, loadQuestions, checkIsAnswerCorrect};
