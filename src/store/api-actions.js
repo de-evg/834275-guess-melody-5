@@ -1,14 +1,14 @@
-import {loadQuestions, requireAuthorization, redirectToRoute} from "./action";
+import {ActionCreator} from "./action";
 import {AuthorizationStatus} from "../const";
 
 const fetchQuestionList = () => (dispatch, _getState, api) => (
   api.get(`/questions`)
-    .then(({data}) => dispatch(loadQuestions(data)))
+    .then(({data}) => dispatch(ActionCreator.loadQuestions(data)))
 );
 
-const chekcAuth = () => (dispatch, _getState, api) => (
+const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .catch((err) => {
       throw err;
     })
@@ -16,8 +16,8 @@ const chekcAuth = () => (dispatch, _getState, api) => (
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
-    .then(()=> dispatch(redirectToRoute(`/result`)))
+    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(()=> dispatch(ActionCreator.redirectToRoute(`/game`)))
 );
 
-export {fetchQuestionList, chekcAuth, login};
+export {fetchQuestionList, checkAuth, login};

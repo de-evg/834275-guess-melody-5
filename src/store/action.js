@@ -6,7 +6,8 @@ const ActionType = {
   INCREMENT_GAME_STEP: `INCREMENT_GAME_STEP`,
   RESET_GAME: `RESET_GAME`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  LOAD_QUESTIONS: `LOAD_QUESTIONS`
 };
 
 const checkIsAnswerCorrect = (question, userAnswer) => {
@@ -40,6 +41,10 @@ const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url
+  }),
+  loadQuestions: (qustions) => ({
+    type: ActionType.LOAD_QUESTIONS,
+    payload: qustions
   })
 };
 

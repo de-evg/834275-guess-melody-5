@@ -22,11 +22,18 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         mistakes: state.mistakes + INCREMENT_STEP
       });
+
     case ActionType.RESET_GAME:
-      return extend(state, initialState);
+      return extend(state, {mistakes: 0, step: 0});
+
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {
         authorizationStatus: action.payload
+      });
+
+    case ActionType.LOAD_QUESTIONS:
+      return Object.assign({}, state, {
+        questions: action.payload
       });
   }
   return state;

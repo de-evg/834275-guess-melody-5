@@ -38,7 +38,7 @@ const App = () => {
           path={`/result`}
           render={({history}) => (
             <WinScreen
-              onReplayButtonClick={() => history.push(`game`)}
+              onReplayButtonClick={() => history.push(`/game`)}
             />
           )}
         />

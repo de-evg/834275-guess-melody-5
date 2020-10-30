@@ -31,12 +31,13 @@ const GameOverScreen = ({onReplayButtonClick, resetGame}) => {
 GameOverScreen.propTypes = {
   onReplayButtonClick: PropTypes.func.isRequired,
   resetGame: PropTypes.func.isRequired,
+  loadQuestions: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   resetGame() {
     dispatch(ActionCreator.resetGame());
-  },
+  }
 });
 
 export {GameOverScreen};
