@@ -84,5 +84,5 @@ AuthScreen.propTypes = {
   onReplayButtonClick: PropTypes.func.isRequired,
 };
 
-export {AuthScreen}
+export {AuthScreen};
 export default connect(null, mapDispatchToProps)(AuthScreen);
