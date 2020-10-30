@@ -1,12 +1,12 @@
 import {extend} from "../utils/utils";
 import {ActionType} from "./action";
-import {INCREMENT_STEP, authorizationStatus} from "../const";
+import {INCREMENT_STEP, AuthorizationStatus} from "../const";
 
 const initialState = {
   mistakes: 0,
   step: 0,
-  questions,
-  authorizationStatus: authorizationStatus.NO_AUTH
+  questions: [],
+  authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
 const reducer = (state = initialState, action) => {
