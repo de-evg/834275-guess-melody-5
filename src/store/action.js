@@ -5,7 +5,8 @@ const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
   INCREMENT_GAME_STEP: `INCREMENT_GAME_STEP`,
   RESET_GAME: `RESET_GAME`,
-  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`
 };
 
 const checkIsAnswerCorrect = (question, userAnswer) => {
@@ -35,6 +36,10 @@ const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url
   })
 };
 
