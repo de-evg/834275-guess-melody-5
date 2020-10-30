@@ -4,7 +4,8 @@ import {GameType} from "../const";
 const ActionType = {
   INCREMENT_MISTAKES: `INCREMENT_MISTAKES`,
   INCREMENT_GAME_STEP: `INCREMENT_GAME_STEP`,
-  RESET_GAME: `RESET_GAME`
+  RESET_GAME: `RESET_GAME`,
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`
 };
 
 const checkIsAnswerCorrect = (question, userAnswer) => {
@@ -30,6 +31,10 @@ const ActionCreator = {
   }),
   incrementMistake: () => ({
     type: ActionType.INCREMENT_MISTAKES
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status
   })
 };
 

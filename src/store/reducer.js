@@ -1,11 +1,12 @@
 import {extend} from "../utils/utils";
 import {ActionType} from "./action";
-import {INCREMENT_STEP} from "../const";
+import {INCREMENT_STEP, authorizationStatus} from "../const";
 
 const initialState = {
   mistakes: 0,
   step: 0,
-  questions
+  questions,
+  authorizationStatus: authorizationStatus.NO_AUTH
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,10 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.RESET_GAME:
       return extend(state, initialState);
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return Object.assign({}, state, {
+        authorizationStatus: action.payload
+      });
   }
   return state;
 };
