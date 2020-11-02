@@ -47,9 +47,9 @@ const redirectToRoute = (url) => ({
   payload: url
 });
 
-const loadQuestions = (qustions) => ({
+const loadQuestions = (questions) => ({
   type: ActionType.LOAD_QUESTIONS,
-  payload: qustions
+  payload: questions
 });
 
 export {ActionType, incrementStep, resetGame, incrementMistake, requireAuthorization, redirectToRoute, loadQuestions, checkIsAnswerCorrect};
