@@ -1,12 +1,12 @@
 import {extend} from "../utils/utils";
 import {ActionType} from "./action";
-import questions from "../mocks/questions";
-import {INCREMENT_STEP} from "../const";
+import {INCREMENT_STEP, AuthorizationStatus} from "../const";
 
 const initialState = {
   mistakes: 0,
   step: 0,
-  questions
+  questions: [],
+  authorizationStatus: AuthorizationStatus.NO_AUTH
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,8 +22,19 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         mistakes: state.mistakes + INCREMENT_STEP
       });
+
     case ActionType.RESET_GAME:
-      return extend(state, initialState);
+      return extend(state, {mistakes: 0, step: 0});
+
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return Object.assign({}, state, {
+        authorizationStatus: action.payload
+      });
+
+    case ActionType.LOAD_QUESTIONS:
+      return Object.assign({}, state, {
+        questions: action.payload
+      });
   }
   return state;
 };

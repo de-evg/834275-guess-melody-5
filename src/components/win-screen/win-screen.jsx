@@ -1,14 +1,13 @@
 import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../store/action";
+import {resetGame} from "../../store/action";
 
-const WinScreen = (props) => {
-  const {questionsCount, mistakesCount, onReplayButtonClick, resetGame} = props;
+const WinScreen = ({questionsCount, mistakesCount, onReplayButtonClick, resetGameAction}) => {
   const correctlyQuestionsCount = questionsCount - mistakesCount;
 
   const handleReplayBtnClick = useCallback(() => {
-    resetGame();
+    resetGameAction();
     onReplayButtonClick();
   });
 
@@ -34,20 +33,19 @@ WinScreen.propTypes = {
   questionsCount: PropTypes.number.isRequired,
   mistakesCount: PropTypes.number.isRequired,
   onReplayButtonClick: PropTypes.func.isRequired,
-  resetGame: PropTypes.func.isRequired,
+  resetGameAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  questionsCount: state.step,
-  mistakesCount: state.mistakes,
+const mapStateToProps = ({GAME}) => ({
+  questionsCount: GAME.step,
+  mistakesCount: GAME.mistakes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetGame() {
-    dispatch(ActionCreator.resetGame());
+  resetGameAction() {
+    dispatch(resetGame());
   },
 });
-
 
 export {WinScreen};
 
