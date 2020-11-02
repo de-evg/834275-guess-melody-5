@@ -58,10 +58,10 @@ const GameScreen = ({questions, step, onUserAnswer, mistakes}) => {
   return <Redirect to={AppRoute.ROOT} />;
 };
 
-const mapStateToProps = (state) => ({
-  step: state.step,
-  mistakes: state.mistakes,
-  questions: state.questions,
+const mapStateToProps = ({GAME, DATA}) => ({
+  step: GAME.step,
+  mistakes: GAME.mistakes,
+  questions: DATA.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -83,7 +83,7 @@ GameScreen.propTypes = {
       PropTypes.oneOfType([artistQuestionProp, genreQuestionProp]).isRequired
   ),
   step: PropTypes.number.isRequired,
-  resetGame: PropTypes.func.isRequired,
+  resetGameActoion: PropTypes.func.isRequired,
   onUserAnswer: PropTypes.func.isRequired,
   mistakes: PropTypes.number.isRequired
 };

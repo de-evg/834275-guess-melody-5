@@ -21,6 +21,7 @@ const checkIsAnswerCorrect = (question, userAnswer) => {
       answerIsCorrect = isGenreAnswerCorrect(question, userAnswer);
       break;
   }
+
   return answerIsCorrect;
 };
 

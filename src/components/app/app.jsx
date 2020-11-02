@@ -19,7 +19,7 @@ const App = () => {
           path={AppRoute.ROOT}
           render={({history}) => (
             <WelcomeScreen
-              onPlayButtonClick={() => history.push(AppRoute.LOGIN)}
+              onPlayButtonClick={() => history.push(AppRoute.GAME)}
               errorsCount={MAX_MISTAKE_COUNT}
             />
           )}
@@ -33,6 +33,7 @@ const App = () => {
             />
           )}
         />
+
         <PrivateRoute
           exact
           path={AppRoute.RESULT}
@@ -42,6 +43,7 @@ const App = () => {
             />
           )}
         />
+
         <Route exact
           path={AppRoute.LOSE}
           render={({history}) => (
